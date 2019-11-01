@@ -3,16 +3,16 @@
     <mat-card-title>{{ product.descripcion | uppercase }}</mat-card-title>
     <mat-card-subtitle>{{ product.precio | currency }}</mat-card-subtitle>
   </mat-card-header>
-  <div class="crop-image">
+  <div class="row center-xs">
     <img [src]="product.miniatura" alt="">
   </div>
-  <mat-card-content>
+  <mat-card-content class="row center-xs">
     <p>{{ product.categoria}}</p>
   </mat-card-content>
   <mat-card-actions>
-    <div class="row">
-    <a class="col-xs-12" mat-raised-button [routerLink]="['/products', product.idProducto]">Ver detalle</a>
-    <button class="col-xs-12"  mat-raised-button color="primary" >Agregar al carrito</button>
-  </div>
+    <div class="row center-xs">
+      <a [routerLink]="['/products', 'request', product.idProducto]" mat-raised-button color="primary" class="col-xs-11"
+        [disabled]="!(product.cantidadDisponible > 0)">{{!(product.cantidadDisponible > 0) ? 'Sin cantidad' : 'Pedir'}}</a>
+    </div>
   </mat-card-actions>
 </mat-card>

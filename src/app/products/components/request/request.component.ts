@@ -1,23 +1,40 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ProductsService } from 'src/app/core/services/products/products.service';
 
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
-  styleUrls: ['./request.component.css']
+  styleUrls: ['./request.component.sass']
 })
 export class RequestComponent {
   addressForm = this.fb.group({
-    company: null,
     name: [null, Validators.required],
     dateBirth: [null, Validators.required],
     address: [null, Validators.required],
     city: [null, Validators.required],
-    file: [null, Validators.required],
-    state: [null, Validators.required],
+    file: [null, Validators.compose([
+      Validators.required
+    ])]
   });
 
-  hasUnitNumber = false;
+  validationMessages = {
+    name: [
+      { type: 'required', message: 'El nombre es requerido' }
+    ],
+    dateBirth: [
+      { type: 'required', message: 'La fecha de nacimiento debe ser válida'},
+    ],
+    address: [
+      { type: 'required', message: 'La dirección es requerida'},
+    ],
+    city: [
+      { type: 'required', message: 'La ciudad es requerida'},
+    ],
+    file: [
+      { type: 'required', message: 'El archivo es requerido' }
+    ]
+  };
 
   cities = [
     'Abejorral',
@@ -147,9 +164,17 @@ export class RequestComponent {
     'Zaragoza'
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private productsService: ProductsService
+  ) {}
 
-  onSubmit() {
+  onSubmit(event: Event) {
+    event.preventDefault();
+    console.log('this.addressForm.value :', this.addressForm.value);
+    if (this.addressForm.valid) {
+
+    }
     alert('Thanks!');
   }
 }

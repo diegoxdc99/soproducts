@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-header class="row center-xs">
+  <mat-card-header class="row center-xs title">
     <mat-card-title>{{ product.descripcion | uppercase }}</mat-card-title>
     <mat-card-subtitle>{{ product.precio | currency }}</mat-card-subtitle>
   </mat-card-header>
@@ -11,8 +11,8 @@
   </mat-card-content>
   <mat-card-actions>
     <div class="row center-xs">
-      <a [routerLink]="['/products', 'request', product.idProducto]" mat-raised-button color="primary" class="col-xs-11"
-        [disabled]="!(product.cantidadDisponible > 0)">{{!(product.cantidadDisponible > 0) ? 'Sin cantidad' : 'Pedir'}}</a>
+      <button [routerLink]="['/products', 'request', product.idProducto]" mat-raised-button color="primary" class="col-xs-11"
+        [disabled]="!(product.cantidadDisponible > 0)">{{!(product.cantidadDisponible > 0) ? 'Sin cantidad' : 'Pedir'}}</button>
     </div>
   </mat-card-actions>
 </mat-card>

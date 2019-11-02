@@ -1,70 +1,57 @@
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
-  <mat-card class="shipping-card">
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit($event)">
+  <mat-card class="request-card">
     <mat-card-header>
-      <mat-card-title>Shipping Information</mat-card-title>
+      <mat-card-title>Solicitud del producto</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Nombre" formControlName="name">
-            <mat-error *ngIf="addressForm.controls['name'].hasError('required')">
-              Nombre es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
+
+        <mat-form-field class="col-xs-12 col-md-6">
+          <input matInput placeholder="Nombre" formControlName="name">
+          <mat-error *ngFor="let validation of validationMessages.name">
+            <mat-error class="error-message" *ngIf="addressForm.get('name').hasError(validation.type) && (addressForm.get('name').dirty || addressForm.get('name').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+          <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" formControlName="dateBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngFor="let validation of validationMessages.dateBirth">
+            <mat-error class="error-message" *ngIf="addressForm.get('dateBirth').hasError(validation.type) && (addressForm.get('dateBirth').dirty || addressForm.get('dateBirth').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+
       </div>
       <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" formControlName="dateBirth">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <!-- <input matInput placeholder="Fecha de nacimiento" > -->
-            <mat-error *ngIf="addressForm.controls['name'].hasError('required')">
-              Fecha de nacimiento es <strong>requerida</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
+        <mat-form-field class="col-xs-12 col-md-6">
+          <input matInput placeholder="Dirección" formControlName="address">
+          <mat-error *ngFor="let validation of validationMessages.address">
+            <mat-error class="error-message" *ngIf="addressForm.get('address').hasError(validation.type) && (addressForm.get('address').dirty || addressForm.get('address').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+          <mat-select placeholder="Ciudad" formControlName="city">
+            <mat-option *ngFor="let city of cities; let i = index " [value]="i">
+              {{city}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngFor="let validation of validationMessages.city">
+            <mat-error class="error-message" *ngIf="addressForm.get('city').hasError(validation.type) && (addressForm.get('city').dirty || addressForm.get('city').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Dirección" formControlName="address"></textarea>
-            <mat-error *ngIf="addressForm.controls['address'].hasError('required')">
-              Dirección es <strong>requerida</strong>
+          <mat-form-field class="col-xs-12">
+            <input  accept="image/*" matInput placeholder="Archivo" formControlName="file">
+            <mat-error *ngFor="let validation of validationMessages.file">
+              <mat-error class="error-message" *ngIf="addressForm.get('file').hasError(validation.type) && (addressForm.get('file').dirty || addressForm.get('file').touched)">{{validation.message}}</mat-error>
             </mat-error>
           </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-select placeholder="State" formControlName="city">
-              <mat-option *ngFor="let city of cities; let i = index " [value]="i">
-                {{city}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="addressForm.controls['state'].hasError('required')">
-              Ciudad es <strong>requerida</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Dirección" formControlName="address"></textarea>
-            <mat-error *ngIf="addressForm.controls['address'].hasError('required')">
-              Dirección es <strong>requerida</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
       </div>
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button [disabled]="!addressForm.valid" mat-raised-button color="primary" type="submit">Solicitar</button>
     </mat-card-actions>
   </mat-card>
 </form>

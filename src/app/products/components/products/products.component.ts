@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/core/models/product.model';
+import { ProductsService } from 'src/app/core/services/products/products.service';
 
 @Component({
   selector: 'app-products',
@@ -7,6 +8,7 @@ import { Product } from 'src/app/core/models/product.model';
   styleUrls: ['./products.component.sass']
 })
 export class ProductsComponent implements OnInit {
+  // products: Product[];
   products: Product[] = [
     {
         descripcion: 'Huawei P10',
@@ -54,9 +56,18 @@ export class ProductsComponent implements OnInit {
         precio: 1750000
     }
 ];
-  constructor() { }
+  constructor(
+    private productsService: ProductsService
+  ) { }
 
   ngOnInit() {
+    // this.fetchProducts();
+  }
+
+  fetchProducts() {
+    this.productsService.getAllProducts().subscribe(products => {
+      this.products = products;
+    });
   }
 
 }

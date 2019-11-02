@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ProductsService } from 'src/app/core/services/products/products.service';
+import { OrdersService } from 'src/app/core/services/orders/orders.service';
+import { Observable } from 'rxjs';
+import { Order } from 'src/app/core/models/order.model';
 
 @Component({
   selector: 'app-request',
@@ -9,14 +11,15 @@ import { ProductsService } from 'src/app/core/services/products/products.service
 })
 export class RequestComponent {
   addressForm = this.fb.group({
-    name: [null, Validators.required],
-    dateBirth: [null, Validators.required],
-    address: [null, Validators.required],
-    city: [null, Validators.required],
-    file: [null, Validators.compose([
+    name: ['Diego Alberto', Validators.required],
+    dateBirth: [new Date(), Validators.required],
+    address: ['Diasdasd 12', Validators.required],
+    city: [1, Validators.required],
+    file: ['c:asdasd', Validators.compose([
       Validators.required
     ])]
   });
+  orders$: Observable<Order[]>;
 
   validationMessages = {
     name: [
@@ -166,15 +169,13 @@ export class RequestComponent {
 
   constructor(
     private fb: FormBuilder,
-    private productsService: ProductsService
-  ) {}
+    private ordersService: OrdersService
+  ) { }
 
-  onSubmit(event: Event) {
+  createOrder(event: Event) {
     event.preventDefault();
-    console.log('this.addressForm.value :', this.addressForm.value);
     if (this.addressForm.valid) {
-
+      this.ordersService.addOrder(this.addressForm.value);
     }
-    alert('Thanks!');
   }
 }

@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ToastrModule } from 'ngx-toastr';
     SharedModule,
     CoreModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -182,8 +182,9 @@ export class RequestComponent implements OnInit {
   createOrder(event: Event) {
     event.preventDefault();
     if (this.addressForm.valid) {
-      this.ordersService.addOrder(this.addressForm.value, this.productId);
-      this.toastr.success(`Con el Id: ${this.addressForm.value.id}`, 'Orden creada', {
+      const newOrder = Object.assign({}, this.addressForm.value);
+      this.ordersService.addOrder(newOrder, this.productId);
+      this.toastr.success(`Con el Id: ${newOrder.id}`, 'Orden creada', {
         closeButton: true
       });
     }

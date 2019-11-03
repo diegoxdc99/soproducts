@@ -5,4 +5,5 @@ export interface Order {
   address: string;
   city: number;
   file: string;
+  productId: string;
 }

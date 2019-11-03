@@ -19,8 +19,10 @@ export class OrdersService {
     this.updateOrdersFiled();
   }
 
-  addOrder(order: Order) {
-    order.id = this.generateId();
+  addOrder(order: Order, productId: string) {
+    const orderForm = order;
+    orderForm.id = this.generateId();
+    orderForm.productId = productId;
     this.orders = [...this.orders, order];
     this.localStorageService.storeOrder(this.orders);
     this.updateOrdersFiled();

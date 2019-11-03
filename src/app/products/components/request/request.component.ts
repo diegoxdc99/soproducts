@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
-import { Observable } from 'rxjs';
-import { Order } from 'src/app/core/models/order.model';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.sass']
 })
-export class RequestComponent {
+export class RequestComponent implements OnInit {
   addressForm = this.fb.group({
     name: [null, Validators.required],
     dateBirth: [null, Validators.required],
@@ -20,8 +19,7 @@ export class RequestComponent {
       Validators.required
     ])]
   });
-  orders$: Observable<Order[]>;
-
+  productId: string;
   validationMessages = {
     name: [
       { type: 'required', message: 'El nombre es requerido' }
@@ -171,13 +169,20 @@ export class RequestComponent {
   constructor(
     private fb: FormBuilder,
     private ordersService: OrdersService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.productId = this.route.snapshot.paramMap.get('id');
+  }
 
   createOrder(event: Event) {
     event.preventDefault();
     if (this.addressForm.valid) {
-      this.ordersService.addOrder(this.addressForm.value);
+      this.ordersService.addOrder(this.addressForm.value, this.productId);
       this.toastr.success(`Con el Id: ${this.addressForm.value.id}`, 'Orden creada', {
         closeButton: true
       });

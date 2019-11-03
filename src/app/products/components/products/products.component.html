@@ -1,3 +1,9 @@
 <div class="product-grid">
   <app-product *ngFor="let product of products" [product]="product"></app-product>
 </div>
+
+<div class="row center-xs" *ngIf="!isDataLoaded" >
+  <div class="col-xs-12">Cargando productos, por favor espere.</div>
+    <mat-progress-spinner [color]="'primary'" [diameter]="50" [mode]="'indeterminate'"> Cargando
+      </mat-progress-spinner>
+</div>

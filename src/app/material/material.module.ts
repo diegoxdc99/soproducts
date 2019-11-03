@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -30,7 +31,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MaterialFileInputModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatToolbarModule,
@@ -46,7 +48,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MaterialFileInputModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     MatDatepickerModule

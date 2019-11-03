@@ -18,11 +18,11 @@
   </mat-card-actions>
 </mat-card>
 
-<div class="large" [ngClass]="{large__hidden: !showLageImage}">
+<div (click)="closeImage()" class="large" [ngClass]="{large__hidden: !showLageImage}">
   <div class="large__image row middle-xs center-xs">
     <div class="row">
         <mat-icon (click)="closeImage()" class="large__close col-xs-1 last-xs">cancel</mat-icon>
-        <img class="col-xs-11" [src]="product.imagen" alt="">
+        <img class="col-xs-12 col-sm-11" [src]="product.imagen" alt="">
     </div>
   </div>
 

@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { Observable } from 'rxjs';
 import { Order } from 'src/app/core/models/order.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request',
@@ -11,11 +12,11 @@ import { Order } from 'src/app/core/models/order.model';
 })
 export class RequestComponent {
   addressForm = this.fb.group({
-    name: ['Diego Alberto', Validators.required],
-    dateBirth: [new Date(), Validators.required],
-    address: ['Diasdasd 12', Validators.required],
-    city: [1, Validators.required],
-    file: ['c:asdasd', Validators.compose([
+    name: [null, Validators.required],
+    dateBirth: [null, Validators.required],
+    address: [null, Validators.required],
+    city: [null, Validators.required],
+    file: [null, Validators.compose([
       Validators.required
     ])]
   });
@@ -169,13 +170,17 @@ export class RequestComponent {
 
   constructor(
     private fb: FormBuilder,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private toastr: ToastrService
   ) { }
 
   createOrder(event: Event) {
     event.preventDefault();
     if (this.addressForm.valid) {
       this.ordersService.addOrder(this.addressForm.value);
+      this.toastr.success(`Con el Id: ${this.addressForm.value.id}`, 'Orden creada', {
+        closeButton: true
+      });
     }
   }
 }

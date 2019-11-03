@@ -8,9 +8,12 @@ import { MaterialModule } from '../material/material.module';
 import { RequestComponent } from './components/request/request.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
-  declarations: [ProductsComponent, ProductComponent, RequestComponent],
+  declarations: [
+    ProductsComponent,
+    ProductComponent,
+    RequestComponent
+  ],
   imports: [
     CommonModule,
     ProductsRoutingModule,

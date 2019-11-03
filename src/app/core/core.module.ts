@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from './services/products/products.service';
-
+import { OrdersService } from './services/orders/orders.service';
+import { LocalStorageService } from './services/localStorage/local-storage.service';
 
 
 @NgModule({
@@ -10,7 +11,9 @@ import { ProductsService } from './services/products/products.service';
     CommonModule
   ],
   providers: [
-    ProductsService
+    ProductsService,
+    OrdersService,
+    LocalStorageService
   ]
 })
 export class CoreModule { }

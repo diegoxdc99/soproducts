@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../../models/order.model';
 import { BehaviorSubject } from 'rxjs';
+import { LocalStorageService } from '../localStorage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +9,28 @@ import { BehaviorSubject } from 'rxjs';
 export class OrdersService {
   private orders: Order[] = [];
   private ordersFiled = new BehaviorSubject<Order[]>([]);
-  private lastId = 0;
   ordersFiled$ = this.ordersFiled.asObservable();
 
-  constructor() { }
+  constructor(
+    private localStorageService: LocalStorageService
+  ) {
+    const orders = localStorageService.getOrders();
+    this.orders = orders ? orders : [];
+    this.updateOrdersFiled();
+  }
 
   addOrder(order: Order) {
     order.id = this.generateId();
     this.orders = [...this.orders, order];
-    this.ordersFiled.next(this.orders);
+    this.localStorageService.storeOrder(this.orders);
+    this.updateOrdersFiled();
   }
 
   generateId() {
-    return this.lastId++;
+    return this.orders.length;
+  }
+
+  updateOrdersFiled() {
+    this.ordersFiled.next(this.orders);
   }
 }

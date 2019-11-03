@@ -10,6 +10,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -26,7 +28,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatRadioModule,
     MatCardModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MaterialFileInputModule,
+    MatIconModule
   ],
   exports: [
     MatToolbarModule,
@@ -40,7 +44,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatRadioModule,
     MatCardModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MaterialFileInputModule,
+    MatIconModule
   ],
   providers: [
     MatDatepickerModule

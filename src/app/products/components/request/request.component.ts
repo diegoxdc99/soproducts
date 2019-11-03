@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { FileValidator } from 'ngx-material-file-input';
 
 @Component({
   selector: 'app-request',
@@ -10,13 +11,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./request.component.sass']
 })
 export class RequestComponent implements OnInit {
+  readonly maxSize = 1000000;
   addressForm = this.fb.group({
     name: [null, Validators.required],
     dateBirth: [null, Validators.required],
     address: [null, Validators.required],
     city: [null, Validators.required],
     file: [null, Validators.compose([
-      Validators.required
+      Validators.required,
+      FileValidator.maxContentSize(this.maxSize)
     ])]
   });
   productId: string;
@@ -34,7 +37,8 @@ export class RequestComponent implements OnInit {
       { type: 'required', message: 'La ciudad es requerida'},
     ],
     file: [
-      { type: 'required', message: 'El archivo es requerido' }
+      { type: 'required', message: 'El archivo es requerido' },
+      { type: 'maxContentSize', message: 'El archivo debe ser menor a un 1MB' }
     ]
   };
 
@@ -182,7 +186,11 @@ export class RequestComponent implements OnInit {
   createOrder(event: Event) {
     event.preventDefault();
     if (this.addressForm.valid) {
-      const newOrder = Object.assign({}, this.addressForm.value);
+      const newOrder = Object.assign(
+        this.addressForm.value,
+        {
+          file: this.addressForm.value.file._fileNames
+        });
       this.ordersService.addOrder(newOrder, this.productId);
       this.toastr.success(`Con el Id: ${newOrder.id}`, 'Orden creada', {
         closeButton: true

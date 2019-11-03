@@ -9,7 +9,9 @@
         <mat-form-field class="col-xs-12 col-md-6">
           <input matInput placeholder="Nombre" formControlName="name">
           <mat-error *ngFor="let validation of validationMessages.name">
-            <mat-error class="error-message" *ngIf="addressForm.get('name').hasError(validation.type) && (addressForm.get('name').dirty || addressForm.get('name').touched)">{{validation.message}}</mat-error>
+            <mat-error class="error-message"
+              *ngIf="addressForm.get('name').hasError(validation.type) && (addressForm.get('name').dirty || addressForm.get('name').touched)">
+              {{validation.message}}</mat-error>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="col-xs-6 col-md-6">
@@ -17,7 +19,9 @@
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngFor="let validation of validationMessages.dateBirth">
-            <mat-error class="error-message" *ngIf="addressForm.get('dateBirth').hasError(validation.type) && (addressForm.get('dateBirth').dirty || addressForm.get('dateBirth').touched)">{{validation.message}}</mat-error>
+            <mat-error class="error-message"
+              *ngIf="addressForm.get('dateBirth').hasError(validation.type) && (addressForm.get('dateBirth').dirty || addressForm.get('dateBirth').touched)">
+              {{validation.message}}</mat-error>
           </mat-error>
         </mat-form-field>
 
@@ -26,7 +30,9 @@
         <mat-form-field class="col-xs-12 col-md-6">
           <input matInput placeholder="Dirección" formControlName="address">
           <mat-error *ngFor="let validation of validationMessages.address">
-            <mat-error class="error-message" *ngIf="addressForm.get('address').hasError(validation.type) && (addressForm.get('address').dirty || addressForm.get('address').touched)">{{validation.message}}</mat-error>
+            <mat-error class="error-message"
+              *ngIf="addressForm.get('address').hasError(validation.type) && (addressForm.get('address').dirty || addressForm.get('address').touched)">
+              {{validation.message}}</mat-error>
           </mat-error>
         </mat-form-field>
         <mat-form-field class="col-xs-6 col-md-6">
@@ -36,17 +42,22 @@
             </mat-option>
           </mat-select>
           <mat-error *ngFor="let validation of validationMessages.city">
-            <mat-error class="error-message" *ngIf="addressForm.get('city').hasError(validation.type) && (addressForm.get('city').dirty || addressForm.get('city').touched)">{{validation.message}}</mat-error>
+            <mat-error class="error-message"
+              *ngIf="addressForm.get('city').hasError(validation.type) && (addressForm.get('city').dirty || addressForm.get('city').touched)">
+              {{validation.message}}</mat-error>
           </mat-error>
         </mat-form-field>
       </div>
       <div class="row">
-          <mat-form-field class="col-xs-12">
-            <input  accept="image/*" matInput placeholder="Archivo" formControlName="file">
-            <mat-error *ngFor="let validation of validationMessages.file">
-              <mat-error class="error-message" *ngIf="addressForm.get('file').hasError(validation.type) && (addressForm.get('file').dirty || addressForm.get('file').touched)">{{validation.message}}</mat-error>
-            </mat-error>
-          </mat-form-field>
+        <mat-form-field class="col-xs-12">
+          <ngx-mat-file-input formControlName="file" placeholder="Archivo" [accept]="'.pdf'"></ngx-mat-file-input>
+          <mat-icon matSuffix>folder</mat-icon>
+          <mat-error *ngFor="let validation of validationMessages.file">
+            <mat-error class="error-message"
+              *ngIf="addressForm.get('file').hasError(validation.type) && (addressForm.get('file').dirty || addressForm.get('file').touched)">
+              {{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
       </div>
 
     </mat-card-content>

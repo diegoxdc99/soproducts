@@ -4,15 +4,29 @@
     <mat-card-subtitle>{{ product.precio | currency }}</mat-card-subtitle>
   </mat-card-header>
   <div class="row center-xs">
-    <img [src]="product.miniatura" alt="">
+    <img (click)=showImage() [src]="product.miniatura" alt="" class="crop-image">
   </div>
   <mat-card-content class="row center-xs">
     <p>{{ product.categoria}}</p>
   </mat-card-content>
   <mat-card-actions>
     <div class="row center-xs">
-      <button [routerLink]="['/products', 'request', product.idProducto]" mat-raised-button color="primary" class="col-xs-11"
+      <button [routerLink]="['/products', 'request', product.idProducto]" mat-raised-button color="primary"
+        class="col-xs-11"
         [disabled]="!(product.cantidadDisponible > 0)">{{!(product.cantidadDisponible > 0) ? 'Sin cantidad' : 'Pedir'}}</button>
     </div>
   </mat-card-actions>
 </mat-card>
+
+<div class="large" [ngClass]="{large__hidden: !showLageImage}">
+  <div class="large__image row middle-xs center-xs">
+    <div class="row">
+        <mat-icon (click)="closeImage()" class="large__close col-xs-1 last-xs">cancel</mat-icon>
+        <img class="col-xs-11" [src]="product.imagen" alt="">
+    </div>
+  </div>
+
+</div>
+<!-- <div [ngClass]="{'image__large-hidden': !showLageImage}">
+  <img [src]="product.imagen" alt="">
+</div> -->

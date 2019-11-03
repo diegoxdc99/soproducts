@@ -8,10 +8,18 @@ import { Product } from 'src/app/core/models/product.model';
 })
 export class ProductComponent implements OnInit {
   @Input() product: Product;
+  showLageImage = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  showImage() {
+    this.showLageImage = true;
+  }
+
+  closeImage() {
+    this.showLageImage = false;
+  }
 }

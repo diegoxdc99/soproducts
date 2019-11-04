@@ -7,7 +7,8 @@
       <div class="row">
 
         <mat-form-field class="col-xs-12 col-md-6">
-          <input matInput placeholder="Nombre" formControlName="name">
+          <input matInput #nameInput placeholder="Nombre" formControlName="name">
+          <mat-hint align="end">{{nameInput.value.length}} / 50</mat-hint>
           <mat-error *ngFor="let validation of validationMessages.name">
             <mat-error class="error-message"
               *ngIf="addressForm.get('name').hasError(validation.type) && (addressForm.get('name').dirty || addressForm.get('name').touched)">
@@ -28,7 +29,8 @@
       </div>
       <div class="row">
         <mat-form-field class="col-xs-12 col-md-6">
-          <input matInput placeholder="Dirección" formControlName="address">
+          <input #addressInvput matInput placeholder="Dirección" formControlName="address">
+          <mat-hint align="end">{{addressInvput.value.length}} / 20</mat-hint>
           <mat-error *ngFor="let validation of validationMessages.address">
             <mat-error class="error-message"
               *ngIf="addressForm.get('address').hasError(validation.type) && (addressForm.get('address').dirty || addressForm.get('address').touched)">

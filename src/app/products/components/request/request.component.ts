@@ -13,9 +13,15 @@ import { FileValidator } from 'ngx-material-file-input';
 export class RequestComponent implements OnInit {
   readonly maxSize = 1000000;
   addressForm = this.fb.group({
-    name: [null, Validators.required],
+    name: [null, Validators.compose([
+      Validators.required,
+      Validators.maxLength(50)
+    ])],
     dateBirth: [null, Validators.required],
-    address: [null, Validators.required],
+    address: [null, Validators.compose([
+      Validators.required,
+      Validators.maxLength(20)
+    ])],
     city: [null, Validators.required],
     file: [null, Validators.compose([
       Validators.required,
@@ -25,13 +31,15 @@ export class RequestComponent implements OnInit {
   productId: string;
   validationMessages = {
     name: [
-      { type: 'required', message: 'El nombre es requerido' }
+      { type: 'required', message: 'El nombre es requerido' },
+      { type: 'maxlength', message: 'El nombre es demasiado largo' }
     ],
     dateBirth: [
       { type: 'required', message: 'La fecha de nacimiento debe ser válida'},
     ],
     address: [
       { type: 'required', message: 'La dirección es requerida'},
+      { type: 'maxlength', message: 'La dirección es demasiado larga' }
     ],
     city: [
       { type: 'required', message: 'La ciudad es requerida'},

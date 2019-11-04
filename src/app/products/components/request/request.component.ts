@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { FileValidator } from 'ngx-material-file-input';
+import { create } from 'domain';
 
 @Component({
   selector: 'app-request',
@@ -12,23 +13,9 @@ import { FileValidator } from 'ngx-material-file-input';
 })
 export class RequestComponent implements OnInit {
   readonly maxSize = 1000000;
-  addressForm = this.fb.group({
-    name: [null, Validators.compose([
-      Validators.required,
-      Validators.maxLength(50)
-    ])],
-    dateBirth: [null, Validators.required],
-    address: [null, Validators.compose([
-      Validators.required,
-      Validators.maxLength(20)
-    ])],
-    city: [null, Validators.required],
-    file: [null, Validators.compose([
-      Validators.required,
-      FileValidator.maxContentSize(this.maxSize)
-    ])]
-  });
+  addressForm: FormGroup;
   productId: string;
+
   validationMessages = {
     name: [
       { type: 'required', message: 'El nombre es requerido' },
@@ -189,6 +176,26 @@ export class RequestComponent implements OnInit {
 
   ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get('id');
+    this.createForm();
+  }
+
+  createForm() {
+    this.addressForm = this.fb.group({
+      name: [null, Validators.compose([
+        Validators.required,
+        Validators.maxLength(50)
+      ])],
+      dateBirth: [null, Validators.required],
+      address: [null, Validators.compose([
+        Validators.required,
+        Validators.maxLength(20)
+      ])],
+      city: [null, Validators.required],
+      file: [null, Validators.compose([
+        Validators.required,
+        FileValidator.maxContentSize(this.maxSize)
+      ])]
+    });
   }
 
   createOrder(event: Event) {
@@ -203,6 +210,7 @@ export class RequestComponent implements OnInit {
       this.toastr.success(`Con el Id: ${newOrder.id}`, 'Orden creada', {
         closeButton: true
       });
+      this.addressForm.reset();
     }
   }
 }
